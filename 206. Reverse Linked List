@@ -1,0 +1,33 @@
+206. Reverse Linked List 
+Total Accepted: 79909 Total Submissions: 211711 Difficulty: Easy
+Reverse a singly linked list.
+=======================
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head==null) return null;
+        ListNode root = null;
+        ListNode next = null;
+        ListNode curr = head;
+        while (curr!=null) {
+            next = curr.next; // must save the curr.next pointer, otherwise, it will be lost.
+            if (root == null) {
+                root = curr;
+                root.next = null;
+            } else {
+                curr.next = root;  // insert node from head.
+                root = curr;
+            }
+            curr = next;
+        }
+        return root;
+    }
+}
