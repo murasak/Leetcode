@@ -1,0 +1,93 @@
+92. Reverse Linked List II
+Total Accepted: 63233 Total Submissions: 232596 Difficulty: Medium
+Reverse a linked list from position m to n. Do it in-place and in one-pass.
+
+For example:
+Given 1->2->3->4->5->NULL, m = 2 and n = 4,
+
+return 1->4->3->2->5->NULL.
+
+Note:
+Given m, n satisfy the following condition:
+1 ≤ m ≤ n ≤ length of list.
+==============
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+test set: 1->2->3->4->5, m=2, n=4
+
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if (head==null) return null;
+        if (m==n) return head;
+        
+        // Use dummy head.
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        // get mth node. (preNode=>1)
+        ListNode preNode = dummy;
+        for (int i = 1; i<m; i++) {
+            preNode = preNode.next;
+        }
+        
+        // reverse from m to n.
+        ListNode pre = null;
+        ListNode cur = preNode.next; // cur=>2
+        while (cur!=null && (m<=n)) {
+            ListNode next = cur.next;
+            cur.next = pre; // cur.next=>2.next=pre(null);
+            pre = cur;
+            cur = next;
+            m++;
+        }  // result: pre=>4->3->2->null, cur=>5
+        
+        // merge head and tail.                     4->3->2->5
+        preNode.next.next=cur; //  preNode=>1             ^
+                                                          1
+        preNode.next = pre; // 1->4->3->2->5
+        
+        return dummy.next;
+    }
+}
+==============
+!!!TLE!!!
+if (head==null) return null;
+        if (m==n) return head;
+        ListNode middleHead = head;
+        ListNode pre = head;
+        for (int i=0; i<m-1; i++) {
+            pre = middleHead;
+            middleHead = middleHead.next;
+        }
+        ListNode middleTail = middleHead;
+        for (int j=0; j<n-m; j++) {
+            middleTail = middleTail.next;
+        }
+        ListNode lastHead = middleTail.next;
+        middleTail.next = null;
+        
+        middleHead = reverse(middleHead);
+        pre.next = middleHead;
+        
+        while (middleHead.next!=null) {
+            middleHead = middleHead.next;
+        }
+        middleHead.next = lastHead;
+        return head;
+    }
+    
+    public ListNode reverse(ListNode head) {
+        ListNode root = null;
+        while (head!=null) {
+            ListNode next = head.next;
+            head.next = root;
+            root = head;
+            head = next;
+        }
+        return root;
