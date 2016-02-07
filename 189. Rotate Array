@@ -4,6 +4,8 @@ Rotate an array of n elements to the right by k steps.
 
 For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].
 ================
+Approach I: cut front elements, THEN shift.
+
 public class Solution {
     public void rotate(int[] nums, int k) {
         if (nums==null) return;
@@ -25,6 +27,29 @@ public class Solution {
         // put [1,2,3,4] back after [5,6,7]
         for (int j=0; j<len-k; j++) {
             nums[index] = arr[j];
+            index++;
+        }
+        
+    }
+}
+
+========
+Approach II: [1,2,3]+[1,2,3]=[1,2,3,1,2,3], THEN copy from index[len-k] to index[len-1]
+
+public class Solution {
+    public void rotate(int[] nums, int k) {
+        if (nums==null) return;
+        int len = nums.length;
+        if (k>len) k=k%len; 
+        
+        int[] arr = new int[len*2];
+        for (int i = 0; i<len; i++) {
+            arr[i] = nums[i];
+            arr[len+i] = nums[i];
+        }
+        int index = len-k;
+        for (int j = 0; j<len; j++) {
+            nums[j] = arr[index];
             index++;
         }
         
