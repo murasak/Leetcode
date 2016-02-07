@@ -19,29 +19,29 @@ public class Solution {
         if (head==null) return null;
         // get length of linkedlist
         int len = 0;
-        ListNode runner = head;
-        while (runner!=null) {
-            runner=runner.next;
+        ListNode fast = head;
+        while (fast!=null) {
+            fast=fast.next;
             len++;
         }
         // k mod len, if k>=len
         if (k>=len) k=k%len;
         if (k==0) return head;
         
-        ListNode tail=head;
-        ListNode curr=head;
-        for (int i=0; i<k-1; i++) {
-            if (tail==null) return null;
-            tail = tail.next;
+        fast=head;
+        ListNode slow=head;
+        for (int i=0; i<k; i++) {
+        
+            fast=fast.next;
         }
-        ListNode pre = head;
+
         while (tail.next!=null) {
-            pre = curr;
-            curr = curr.next;
-            tail = tail.next;
+            fast=fast.next;
+            slow=slow.next;
         }
-        tail.next=head;
-        pre.next=null;
-        return curr;
+        fast.next=head;
+        head=slow.next;
+        slow.next=null;
+        return head;
     }
 }
