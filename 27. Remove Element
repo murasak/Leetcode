@@ -1,0 +1,24 @@
+27. Remove Element
+Total Accepted: 100012 Total Submissions: 304121 Difficulty: Easy
+Given an array and a value, remove all instances of that value in place and return the new length.
+
+The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+Example
+Given an array [0,4,4,0,0,2,4,4], value=4
+
+return 4 and front four elements of the array is [0,0,0,2]
+===========
+public class Solution {
+    public int removeElement(int[] nums, int val) {
+        int len = nums.length;
+        int n = len-1;
+        for (int i=0; i<=n; i++) {
+            if (nums[i]==val) {
+                nums[i] = nums[n];
+                n--;
+                i--;
+            }
+        }
+        return n+1;
+    }
+}
