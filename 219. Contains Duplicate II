@@ -3,6 +3,8 @@ Total Accepted: 44727 Total Submissions: 154550 Difficulty: Easy
 Given an array of integers and an integer k, find out whether there are two distinct indices i and j 
 in the array such that nums[i] = nums[j] and the difference between i and j is at most k.
 ============
+test case: [1,0,1,1] expected: true.
+
 public class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         Map<Integer, Integer> hash = new HashMap<>();
@@ -12,7 +14,7 @@ public class Solution {
                 int j = hash.get(nums[i]);
                 if (j>=0 && i-j<=k) return true;
             }
-            hash.put(nums[i],i);
+            hash.put(nums[i],i);  // important, do NOT use else {}.
         }
         return false;
     }
