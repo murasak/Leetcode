@@ -1,0 +1,60 @@
+94. Binary Tree Inorder Traversal
+Total Accepted: 109268 Total Submissions: 282784 Difficulty: Medium
+Given a binary tree, return the inorder traversal of its nodes' values.
+
+For example:
+Given binary tree {1,#,2,3},
+   1
+    \
+     2
+    /
+   3
+return [1,3,2].
+===========
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        inorder(root, res);
+        return res;
+    }
+    
+    public void inorder(TreeNode root, List<Integer> ret) {
+        if (root!=null) {
+            inorder(root.left,ret);
+            ret.add(root.val);
+            inorder(root.right,ret);
+        }
+    }
+}
+========
+http://algorithm.yuanbin.me/zh-hans/binary_tree/binary_tree_inorder_traversal.html
+
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        if (root == null) return result;
+
+        Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+        while (root != null || (!stack.isEmpty())) {
+            if (root != null) {
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                result.add(root.val);
+                root = root.right;
+            }
+        }
+
+        return result;
+    }
+}
