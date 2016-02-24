@@ -1,0 +1,35 @@
+Write a method anagram(s,t) to decide if two strings are anagrams or not.
+
+Example
+Given s="abcd", t="dcab", return true.
+
+Challenge
+O(n) time, O(1) extra space
+=======
+
+public class Solution {
+    /**
+     * @param s: The first string
+     * @param b: The second string
+     * @return true or false
+     */
+    public boolean anagram(String s, String t) {
+        if (s == null || t == null) return false;
+        if (s.length() != t.length()) return false;
+        
+        int[] letterCount = new int[256];
+        
+        for (int i = 0; i<s.length(); i++) {
+            int sIndex = (int)(s.charAt(i));
+            int tIndex = (int)(t.charAt(i));
+            letterCount[sIndex]++;
+            letterCount[tIndex]--;
+        }
+        
+        for (int i = 0; i<t.length(); i++) {
+            int tIndex = (int)(t.charAt(i));
+            if (letterCount[tIndex]!=0) return false;
+        }
+        return true;
+    }
+};
