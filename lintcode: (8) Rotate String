@@ -1,0 +1,46 @@
+Problem Statement
+
+Given a string and an offset, rotate string by offset. (rotate from left to right)
++
+
+Example
+
+Given "abcdefg".
++
+
+offset=0 => "abcdefg"
+offset=1 => "gabcdef"
+offset=2 => "fgabcde"
+offset=3 => "efgabcd"
+Challenge
+
+Rotate in-place with O(1) extra memory.
+=============
+public class Solution {
+    /**
+     * @param str: an array of char
+     * @param offset: an integer
+     * @return: nothing
+     */
+    public void rotateString(char[] str, int offset) {
+        int len = str.length;
+        if (str == null || len <= 1) return;
+        // if offset > len, use mod.
+        offset %= len;
+        // use reverse 3 times in place.
+        reverse(str, 0, len-offset-1);
+        reverse(str, len-offset, len-1);
+        reverse(str, 0, len-1);
+    }
+    
+    public void reverse(char[] str, int start, int end) {
+        
+        while (start < end) {
+            char temp = str[start];
+            str[start] = str[end];
+            str[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
