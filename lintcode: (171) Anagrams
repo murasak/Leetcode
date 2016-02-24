@@ -1,0 +1,47 @@
+Given an array of strings, return all groups of strings that are anagrams.
+
+Example
+Given ["lint", "intl", "inlt", "code"], return ["lint", "inlt", "intl"].
+
+Given ["ab", "ba", "cd", "dc", "e"], return ["ab", "ba", "cd", "dc"].
+Note
+All inputs will be in lower-case
+===========
+public class Solution {
+    /**
+     * @param strs: A list of strings
+     * @return: A list of strings
+     */
+    public List<String> anagrams(String[] strs) {
+        List<String> result = new ArrayList<String>();
+        if (strs == null) return result;
+        
+         Map<String, ArrayList<String>> multiMap = new HashMap<String, ArrayList<String>>();
+        for (String str: strs) {
+            char[] strChar = str.toCharArray();
+            Arrays.sort(strChar);
+            String strSorted = String.valueOf(strChar);
+            
+            if (multiMap.containsKey(strSorted)) {
+                ArrayList<String> aList = multiMap.get(strSorted);
+                aList.add(str);
+                multiMap.put(strSorted, aList);
+            } else {
+                ArrayList<String> aList = new ArrayList<String>();
+                aList.add(str);
+                multiMap.put(strSorted, aList);
+            }
+            
+        }
+            Set<String> keySet = multiMap.keySet();
+            for (String key: keySet) {
+                ArrayList<String> aList = multiMap.get(key);
+                if (aList.size() > 1) {
+                    result.addAll(aList);
+                }
+            }
+            
+            return result;
+        
+    }
+}
