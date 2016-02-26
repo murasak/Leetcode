@@ -15,7 +15,7 @@ public class Solution {
         if (n<=0) return null;
         
         String s = "1";
-        
+        // start from n=1
         for (int i=1; i<n; i++) {
             int cnt = 1;
             int sLen = s.length();
@@ -25,6 +25,8 @@ public class Solution {
                     cnt++;
                 } else {
                     sb.append(cnt+""+s.charAt(j));
+                    
+                    // reset cnt to 1
                     cnt = 1;
                 }
             }
