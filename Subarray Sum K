@@ -1,0 +1,45 @@
+Given an nonnegative integer array, find a subarray where the sum of numbers is k. 
+Your code should return the index of the first number and the index of the last number.
+Example
+
+Given [1, 4, 20, 3, 10, 5], sum k = 33, return [2, 4].
+=============
+HashMap
+public static ArrayList<Integer> sub(int[] nums, int k) {
+    	ArrayList<Integer> res = new ArrayList<Integer>();
+    	HashMap<Integer, Integer> mp = new HashMap<Integer, Integer>();
+    	int sum = 0;
+    	mp.put(0,0);
+    	
+    	for (int i=0; i<nums.length; i++) {
+    		sum += nums[i];
+    		if (mp.containsKey(sum-k)) {
+    			res.add(mp.get(sum-k));
+    			res.add(i);
+    			break;
+    		} else {
+    			mp.put(sum, i+1);
+    		}
+    	}
+    	return res;
+    }
+=======
+Two Pointers
+public static ArrayList<Integer> sub1(int[] nums, int k) {
+    	ArrayList<Integer> res = new ArrayList<Integer>();
+    	int sum = 0;
+    	int start = 0;
+    	for (int i = 0; i < nums.length; i++) {
+			sum += nums[i];
+			while (sum > k) {
+				sum -= nums[start];
+				start++;
+			}
+			if (sum == k) {
+				res.add(start);
+				res.add(i);
+				break;
+			} 
+		}
+    	return res;
+    }
