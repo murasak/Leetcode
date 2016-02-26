@@ -1,0 +1,37 @@
+58. Length of Last Word 
+Total Accepted: 83702 Total Submissions: 291205 Difficulty: Easy
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+
+If the last word does not exist, return 0.
+
+Note: A word is defined as a character sequence consists of non-space characters only.
+
+For example, 
+Given s = "Hello World",
+return 5.
+========
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        if (s == null || s.isEmpty()) return 0;
+        String[] strs = s.trim().split(" ");
+        return strs[strs.length-1].length();
+    }
+}
+
+========
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        if (s == null || s.isEmpty()) return 0;
+        
+        int cnt = 0;
+        int end = s.length()-1;
+        for (int i =end; i>=0; i--) {
+            if (s.charAt(i) == ' ') {
+                if (cnt != 0) break;
+            } else {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
