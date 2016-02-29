@@ -1,0 +1,36 @@
+Given an unsorted integer array, find the first missing positive integer.
+
+Example
+Given [1,2,0] return 3, and [3,4,-1,1] return 2.
+
+Challenge
+Your algorithm should run in O(n) time and uses constant space.
+===========
+public class Solution {
+    /**    
+     * @param A: an array of integers
+     * @return: an integer
+     */
+    public int firstMissingPositive(int[] A) {
+    
+        if (A == null || A.length == 0) return 1;
+        
+        Arrays.sort(A);
+        
+        int i;
+        int index = 1;
+        for (i=1; i < A.length ; i++) {
+            
+            if ( A[i-1]>0 && A[i-1] != A[i]) {
+                if (A[i-1]-index != 0) break;
+                index++;
+            }
+            
+        }
+        
+        if (A[A.length-1] == index) return index+1;
+        
+        return index;
+
+    }
+}
