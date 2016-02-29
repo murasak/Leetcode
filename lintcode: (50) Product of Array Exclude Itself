@@ -1,0 +1,40 @@
+Given an integers array A.
+
+Define B[i] = A[0] * ... * A[i-1] * A[i+1] * ... * A[n-1], calculate B WITHOUT divide operation.
+
+Example
+For A=[1, 2, 3], return [6, 3, 2].
+===========
+public class Solution {
+    /**
+     * @param A: Given an integers array A
+     * @return: A Long array B and B[i]= A[0] * ... * A[i-1] * A[i+1] * ... * A[n-1]
+     */
+    public ArrayList<Long> productExcludeItself(ArrayList<Integer> A) {
+        
+        ArrayList<Long> res = new ArrayList<Long>();
+        
+        if (A.size() == 0 || A == null) return res;
+        // if (A.size() == 1) output is [1], as judge in lintcode.
+        // As for me, if size == 1, should return [], since the products exclude itself.
+        
+        long[] lProducts = new long[A.size()];
+        long[] rProducts = new long[A.size()];
+        
+        lProducts[0] = 1;
+        for (int i = 1; i < A.size(); i++) {
+            lProducts[i] = lProducts[i-1]*A.get(i-1);
+        }
+        
+        rProducts[A.size()-1] = 1;
+        for (int i = A.size()-2; i>=0; i--) {
+            rProducts[i] = rProducts[i+1]*A.get(i+1);
+        }
+        
+        for (int i=0; i<A.size(); i++) {
+            res.add(lProducts[i]*rProducts[i]);
+        }
+        
+        return res;
+    }
+}
