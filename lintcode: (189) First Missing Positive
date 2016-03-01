@@ -34,3 +34,32 @@ public class Solution {
 
     }
 }
+======
+Approach II using bucket sort
+public class Solution {
+    public int firstMissingPositive(int[] nums) {
+        if (nums == null) return 0;
+        
+        // 1: A[i] is in the range;
+        // 2: A[i] > 0.
+        // 3: The target is different;
+        
+        for (int i=0; i < nums.length; i++) {
+            while (nums[i] < nums.length && nums[i]>0 && nums[i] != nums[nums[i]-1]) {
+                swap(nums, i, nums[i]-1);
+            }
+        }
+        
+        for (int i=0; i < nums.length; i++) {
+            if (nums[i] != i+1) return i+1;
+        }
+        
+        return nums.length + 1;
+    }
+    
+    public void swap ( int[] A, int before, int after) {
+        int temp = A[before];
+        A[before] = A[after];
+        A[after] = temp;
+    }
+}
